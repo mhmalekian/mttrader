@@ -1,0 +1,21 @@
+{
+    "name": "mhmalekian/mttrader",
+    "description": "This is a package for handling MetaTrader 4/5 APIs",
+    "type": "library",
+    "require": {
+        "php": ">=7.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mhmalekian\\Mttrader\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "mhmalekian",
+            "email": "malekian610@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
