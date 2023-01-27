@@ -66,6 +66,7 @@ class Mttrader{
         $httpcode = curl_getinfo($handle, CURLINFO_HTTP_CODE);
 
         curl_close($handle);
+
         return ['data' => $data, 'code' => $httpcode];
 
     }

@@ -2,9 +2,9 @@
 namespace Mhmalekian\Mttrader;
 
 
-class Mt4trader extends Mttrader implements MttraderInterface
+class Mt5trader extends Mttrader implements MttraderInterface
 {
-    const __API_BASE_URL="http://mt4.mtapi.be/";
+    const __API_BASE_URL="http://mt5.mtapi.be/";
 
     /**
      *
@@ -22,7 +22,7 @@ class Mt4trader extends Mttrader implements MttraderInterface
      */
     public function Connect($url='')
     {   if($url=='')
-            $url=Mt4trader::__API_BASE_URL.'ConnectPost';
+            $url=Mt5trader::__API_BASE_URL.'ConnectPost';
         return parent::Connect($url);
     }
 
@@ -31,8 +31,8 @@ class Mt4trader extends Mttrader implements MttraderInterface
      */
     public function ValidateConnection()
     {
-        $res = $this->CallApi(Mt4trader::__API_BASE_URL.'CheckConnect?id='.$this->id,false);
-        //dd($this->id);
+        $res = $this->CallApi(Mt5trader::__API_BASE_URL.'CheckConnect?id='.$this->id,false);
+        //dd($res);
         if($res['code']==200 && $res['data']=='OK')
             return true;
         return false;
