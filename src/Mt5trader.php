@@ -38,6 +38,17 @@ class Mt5trader extends Mttrader implements MttraderInterface
         return false;
     }
 
+    /**
+     * Get All of symbols in forex
+     */
+    public function GetSymbols()
+    {
+        $res = $this->CallApi(Mt5trader::__API_BASE_URL.'Symbols?id='.$this->id,false);
+        if($res['code']==200)
+            return $res;
+        return null;
+    }
+
 
 
 
