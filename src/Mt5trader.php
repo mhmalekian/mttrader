@@ -49,6 +49,17 @@ class Mt5trader extends Mttrader implements MttraderInterface
         return null;
     }
 
+    /**
+     * Subscribe symbole
+     */
+    public function Subscribe($symbol,$interval)
+    {
+        $res = $this->CallApi(Mt5trader::__API_BASE_URL.'Subscribe?id='.$this->id.'&symbol='.$symbol.'&interval='.$interval,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
 
 
 

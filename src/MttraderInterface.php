@@ -5,4 +5,5 @@ interface MttraderInterface
     public function Connect();
     public function GetID();
     public function ValidateConnection();
+    public function Subscribe($symbol,$interval);
 }
