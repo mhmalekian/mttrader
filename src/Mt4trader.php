@@ -39,11 +39,22 @@ class Mt4trader extends Mttrader implements MttraderInterface
     }
 
     /**
-     * Subscribe symbole
+     * Subscribe symbol
      */
     public function Subscribe($symbol,$interval)
     {
         $res = $this->CallApi(Mt4trader::__API_BASE_URL.'Subscribe?id='.$this->id.'&symbol='.$symbol.'&interval='.$interval,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
+    /**
+     * UnSubscribe symbol
+     */
+    public function UnSubscribe($symbol)
+    {
+        $res = $this->CallApi(Mt4trader::__API_BASE_URL.'UnSubscribe?id='.$this->id.'&symbol='.$symbol,false);
         if($res['code']==200 && $res['data']=='OK')
             return true;
         return false;

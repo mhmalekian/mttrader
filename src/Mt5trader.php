@@ -60,6 +60,17 @@ class Mt5trader extends Mttrader implements MttraderInterface
         return false;
     }
 
+    /**
+     * UnSubscribe symbol
+     */
+    public function UnSubscribe($symbol)
+    {
+        $res = $this->CallApi(Mt5trader::__API_BASE_URL.'UnSubscribe?id='.$this->id.'&symbol='.$symbol,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
 
 
 
