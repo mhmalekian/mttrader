@@ -7,4 +7,5 @@ interface MttraderInterface
     public function ValidateConnection();
     public function Subscribe($symbol,$interval);
     public function UnSubscribe($symbol);
+    public function SubscribeAll($interval);
 }

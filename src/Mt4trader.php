@@ -60,7 +60,16 @@ class Mt4trader extends Mttrader implements MttraderInterface
         return false;
     }
 
-
+    /**
+     * Subscribe All
+     */
+    public function SubscribeAll($interval)
+    {
+        $res = $this->CallApi(Mt4trader::__API_BASE_URL.'SubscribeMany?id='.$this->id.'&interval='.$interval,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
 
 
 }
