@@ -2,7 +2,7 @@
 namespace Mhmalekian\Mttrader;
 
 
-class Mt5trader extends Mttrader implements MttraderInterface
+class Mt5trader extends Mttrader
 {
     const __API_BASE_URL="https://mt5.mtapi.be/";
 
