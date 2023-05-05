@@ -1,12 +1,13 @@
 <?php
 namespace Mhmalekian\Mttrader;
 
-class Mttrader{
+class Mttrader implements MttraderInterface{
     protected $id=0;
     protected $user;
     protected $password;
     protected $host;
     protected $port;
+    protected $base_url;
     function __construct($user,$password,$host,$port)
     {
         $this->user = $user;
@@ -16,25 +17,14 @@ class Mttrader{
 
     }
 
-    /**
-     * MetaTrader connect api
-     */
-    protected function Connect($url){
-        $params = ['user' => $this->user,
-                    'password' => $this->password,
-                    'host' => $this->host,
-                    'port' => $this->port];
+    //==============================Protected Methods
 
-        $res =$this->CallApi($url,true,$params);
-        if($res['code']==200)
-        {
-            $this->id = $res['data'];
-            return true;
-        }
-        $this->id=0;
-        return false;
+    protected function SetBaseUrl($base_url)
+    {
+        $this->base_url = $base_url;
     }
 
+    
     /**
      * Function for call CURL API
      */
@@ -70,5 +60,105 @@ class Mttrader{
         return ['data' => $data, 'code' => $httpcode];
 
     }
+    //=====================End Of Protected Methods
+
+    //=====================Public Functions
+
+    /**
+     * Return id
+     */
+    public function GetID()
+    {
+        return $this->id;
+    }
+
+    /**
+     * MetaTrader connect api
+     */
+    public function Connect(){
+        $params = ['user' => $this->user,
+                    'password' => $this->password,
+                    'host' => $this->host,
+                    'port' => $this->port];
+
+        $res =$this->CallApi($this->base_url.'ConnectPost',true,$params);
+        if($res['code']==200)
+        {
+            $this->id = $res['data'];
+            return true;
+        }
+        $this->id=0;
+        return false;
+    }
+
+    
+    /**
+     * validate object connection status
+     */
+    public function ValidateConnection()
+    {
+        $res = $this->CallApi($this->base_url.'CheckConnect?id='.$this->id,false);
+        //dd($this->id);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
+    /**
+     * Subscribe symbol
+     */
+    public function Subscribe($symbol,$interval)
+    {
+        $res = $this->CallApi($this->base_url.'Subscribe?id='.$this->id.'&symbol='.$symbol.'&interval='.$interval,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
+    /**
+     * UnSubscribe symbol
+     */
+    public function UnSubscribe($symbol)
+    {
+        $res = $this->CallApi($this->base_url.'UnSubscribe?id='.$this->id.'&symbol='.$symbol,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
+    /**
+     * Subscribe All
+     */
+    public function SubscribeAll($interval)
+    {
+        $res = $this->CallApi($this->base_url.'SubscribeMany?id='.$this->id.'&interval='.$interval,false);
+        if($res['code']==200 && $res['data']=='OK')
+            return true;
+        return false;
+    }
+
+
+    /**
+     * 
+     */
+    public function Disconnect()
+    {
+
+    }
+
+    /**
+     * 
+     */
+    public function AccountSummary(){
+
+    }
+    
+    /**
+     * 
+     */
+    public function Quote($symbol){
+
+    }
+
 
 }
