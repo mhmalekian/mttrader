@@ -160,5 +160,26 @@ class Mttrader implements MttraderInterface{
 
     }
 
+    /**
+     * 
+     */
+    public function SubscribeOrder()
+    {}
+
+    /**
+     * 
+     */
+    public function OrderSend(Order $order)
+    {
+        $params="&symbol=".$order->getSymbol()."&operation=".$order->getOperation()->value."&volume=".$order->getVolume();
+        $params.=$order->getPrice() ? "&price=".$order->getPrice() : '';
+        $params.=$order->getSlippage() ? "&slippage=".$order->getSlippage() : '';
+        $params.=$order->getStoploss() ? "&stoploss=".$order->getStoploss() : '';
+        $params.=$order->getTakeprofit() ? "&takeprofit=".$order->getTakeprofit() : '';
+        $params.=$order->getComment() ? "&comment=".$order->getComment() : '';
+        $params.=$order->getStopLimitPrice() ? "&stopLimitPrice=".$order->getStopLimitPrice() : '';
+        $res = $this->CallApi($this->base_url.'OrderSend?id='.$this->id.$params,false);
+        return $res;
+    }
 
 }

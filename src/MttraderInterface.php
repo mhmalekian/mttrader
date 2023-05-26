@@ -11,4 +11,6 @@ interface MttraderInterface
     public function Subscribe($symbol,$interval);
     public function UnSubscribe($symbol);
     public function SubscribeAll($interval);
+    public function SubscribeOrder();
+    public function OrderSend(Order $order);
 }
